@@ -42,28 +42,20 @@ Invoice ID	Branch	City	Customer type	Gender	Product line	Unit price	Quantity	Tax
 """
 
 
-def convert_to_echarts_bar_data(series):
-    data = []
-    for index, row in series.iterrows():
-        data.append({"name": row["Product line"], "value": row["Quantity"]})
-    return data
-
-
-data["Date"] = pd.to_datetime(data["Date"])
-data["Month"] = data["Date"].dt.strftime("%Y-%m")
-
-units_sold_per_month = (
-    data.groupby(["Month", "Product line"])["Quantity"].sum().reset_index()
+sales_per_gender_product_line = (
+    data.groupby(["Gender", "Product line"])["Total"].sum().reset_index()
 )
 barchart_data = []
-for month in units_sold_per_month["Month"].unique():
-    month_data = (
-        units_sold_per_month[units_sold_per_month["Month"] == month]
-        .set_index("Product line")["Quantity"]
+for product_line in sales_per_gender_product_line["Product line"].unique():
+    product_line_data = (
+        sales_per_gender_product_line[
+            sales_per_gender_product_line["Product line"] == product_line
+        ]
+        .set_index("Gender")["Total"]
         .to_dict()
     )
-    month_data["name"] = month
-    barchart_data.append(month_data)
+    product_line_data["name"] = product_line
+    barchart_data.append(product_line_data)
 
 
 print(barchart_data)

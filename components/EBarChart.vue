@@ -181,37 +181,4 @@ const seriesNames = computed(() => {
 console.log(props.config);
 </script>
 
-<style>
-.tooltip {
-  @apply !bg-background !border-muted !rounded-md !shadow-lg !p-0;
-}
-
-.tooltip-title {
-  @apply font-bold text-foreground border-b p-3;
-}
-
-.tooltip-items {
-  @apply flex flex-col gap-2 p-3;
-}
-
-.tooltip-item {
-  @apply grid gap-2 items-center align-middle px-2;
-  grid-template-columns: 0.5fr 3fr 1fr;
-}
-
-.tooltip-item-color {
-  @apply w-2.5 h-2.5 mr-2 rounded-full;
-}
-
-.tooltip-item-name {
-  @apply text-foreground;
-}
-
-.tooltip-item-value {
-  @apply text-foreground;
-}
-
-.tooltip-item-value {
-  @apply text-right;
-}
-</style>
+<style></style>

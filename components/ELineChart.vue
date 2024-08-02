@@ -49,6 +49,24 @@ provide(INIT_OPTIONS_KEY, {
   renderer: "svg",
 });
 
+const createTooltipMarkup = (params) => {
+  let template = `<div class="tooltip"><div class="tooltip-title">${params[0].name}</div><div class="tooltip-items">`;
+  params.forEach((param) => {
+    const { seriesName, data, color, name } = param;
+    template += `
+    <div class="tooltip-item">
+      <div class="tooltip-item-color" style="background-color: ${color}"></div>
+      <div class="tooltip-item-name">${seriesName}</div>
+      <div class="tooltip-item-value ">${data}</div>
+    </div>
+    `;
+  });
+
+  template += `</div></div>`;
+
+  return template;
+};
+
 const option = computed(() => {
   return {
     xAxis: {
@@ -81,6 +99,12 @@ const option = computed(() => {
         show: props.showYAxis,
         inside: props.showYAxis,
       },
+    },
+
+    tooltip: {
+      trigger: "axis",
+      className: "tooltip",
+      formatter: createTooltipMarkup,
     },
 
     legend: {
@@ -154,8 +178,4 @@ const seriesNames = computed(() => {
 console.log(props.config);
 </script>
 
-<style>
-.toolip {
-  @apply !bg-background !border-muted !rounded-md !shadow-lg;
-}
-</style>
+<style scoped></style>
